@@ -45,6 +45,9 @@ body {
     margin-top: 1em;
 }
 
+.animeTrailer {
+    display: inline-block;
+}
 #animeLink {
     /* TODO: make the link look like a button! */
 }

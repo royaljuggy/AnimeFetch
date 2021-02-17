@@ -42,18 +42,29 @@ async function getAnime(animeNumber) {
         score.textContent = data.score;
         animeSynopsis.textContent = data.synopsis;
         // !!! INNERHtml Used (cross-site scripting attack potential!)
-        animeOpening.innerHTML = "None Found";
-        data.opening_themes.forEach((op) => {
-            const li = document.createElement('li');
-            li.textContent = op;
-            animeOpening.appendChild(li);
-        });
-        animeEnding.innerHTML = "None Found";
-        data.ending_themes.forEach((ed) => {
-            const li = document.createElement('li');
-            li.textContent = ed;
-            animeEnding.appendChild(li);
-        });
+        animeOpening.textContent = "";
+        let openingThemes = data.opening_themes;
+        if (openingThemes.length > 0) {
+            openingThemes.forEach((op) => {
+                const li = document.createElement('li');
+                li.textContent = op;
+                animeOpening.appendChild(li);
+            });
+        } else {
+            animeOpening.textContent = "None Found";
+        }
+        animeEnding.textContent = "";
+        let endingThemes = data.ending_themes;
+        if (endingThemes.length > 0) {
+            endingThemes.forEach((ed) => {
+                const li = document.createElement('li');
+                li.textContent = ed;
+                animeEnding.appendChild(li);
+            });
+        } else {
+            animeEnding.textContent = "None Found";
+        }
+        animeTrailer.src = data.trailer_url;
         animeLink.textContent = `Check out ${data.title}`;
         animeLink.href = data.url;
     } else if (response.status == 404) {
