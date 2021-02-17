@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+}
+
+/* === Global styles */
+.underline {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 50vw;
+    margin: 0 auto;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+/* === Nav/title bar === */
+.navbar {
+    text-align: center;
+    background-color: #9A7DCF;
+    padding: 1.25em;
+    font-size: 1.125em;
+}
+
+/* === Main-content */
+.main-content {
+    background-color: #F4D7D9;
+    padding: .25em 1em;
+}
+
+#fetchForm {
+    padding: 1em;
+}
+
+/* Anime Info (Card-style) */
+.animeInfo {
+    padding: 1em;
+}
+
+.animeDetails {
+    margin-top: 1em;
+}
+
+#animeLink {
+    /* TODO: make the link look like a button! */
+}
+
+#animeLink:hover,
+#animeLink:focus {
+    color: red;
+}
+
+#score {
+    font-weight: 400;  
+}
+
+#queryError {
+    font-weight: 700;
+}
+
+.hidden {
+    display: none;
+}

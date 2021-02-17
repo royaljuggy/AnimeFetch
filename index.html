@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Anime</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1><span class="underline">Fetch Anime</span></h1>
+        <h3>Need a new anime?</h3>
+    </div>
+    <div class="main-content container">
+        <form id="fetchForm">
+            <label for="animeNumber" class="bold">Pass any number! (Optional)</label>
+            <input type="text" id="animeNumber">
+            <button id="btnFetch" type="submit">Get Anime!</button>
+        </form>
+        <div class="animeInfo hidden">
+            <h2 class="animeTitle underline"></h2>
+            <h3 class="animeScore">Score: <span id="score"></span></h3>
+            <img class="animePicture">
+            <div class="animeDetails">
+                <div class="animeSynopsisWrapper"><strong>Synopsis: </strong><p class="animeSynopsis"></p></div>
+                <div class="animeOpeningWrapper"><strong>Opening Themes: </strong><ul class="animeOpening"></ul></div>
+                <div class="animeEndingWrapper"><strong>Ending Themes: </strong><ul class="animeEnding"></ul></div>
+                <div class="animeTrailer"></div>
+                <a href="#" id="animeLink"></a>
+            </div>
+        </div>
+        <div id="queryError" class="hidden"></div>
+    </div>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
