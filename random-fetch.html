@@ -3,7 +3,8 @@
 
 <head>
     <title>Anime</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/random-fetch.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -16,14 +17,14 @@
                 <h3>Need a new anime?</h3>
             </div>
             <div class="links">
-                <a href="index.html" class="link current-link">Home</a>
-                <a href="random-fetch.html" class="link">Random Fetch</a>
+                <a href="index.html" class="link">Home</a>
+                <a href="random-fetch.html" class="link current-link">Random Fetch</a>
             </div>
         </nav>
     </div>
     <div class="main-content container">
         <form id="fetchForm">
-            <label for="animeNumber" class="bold">Pass a genre number from 1 to 42</label>
+            <label for="animeNumber" class="bold">Pass any number! (Optional)</label>
             <input type="text" id="animeNumber">
             <button id="btnFetch" type="submit">Get Anime!</button>
         </form>
@@ -33,11 +34,15 @@
             <img class="animePicture">
             <div class="animeDetails">
                 <div class="animeSynopsisWrapper"><strong>Synopsis: </strong><p class="animeSynopsis"></p></div>
+                <div class="animeOpeningWrapper"><strong>Opening Themes: </strong><ul class="animeOpening"></ul></div>
+                <div class="animeEndingWrapper"><strong>Ending Themes: </strong><ul class="animeEnding"></ul></div>
+                <iframe class="animeTrailer hidden" autostart="false"></iframe>
                 <a href="#" id="animeLink"></a>
             </div>
         </div>
         <div id="queryError" class="hidden"></div>
     </div>
-    <script src="js/index.js"></script>
+    <script src="js/random-fetch.js"></script>
 </body>
+
 </html>

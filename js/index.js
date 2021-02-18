@@ -1,8 +1,7 @@
 const fetchForm = document.getElementById('fetchForm');
 const animeNumberInput = document.getElementById('animeNumber');
-const animeNumberCeiling = 100000;
-const startingAnimeNumber = 31240;
-const apiURL = 'https://api.jikan.moe/v3/anime/';
+const genreNumberCeiling = 42;
+const apiURL = 'https://api.jikan.moe/v3/search/anime';
 
 // Anime Info
 const animeInfo = document.querySelector(".animeInfo");
@@ -16,68 +15,50 @@ const animeTrailer = document.querySelector(".animeTrailer");
 const animeLink = document.getElementById("animeLink");
 const queryError = document.getElementById("queryError")
 
+fetch('https://api.jikan.moe/v3/search/anime?genre=22&page=21')
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+
 fetchForm.addEventListener('submit', submitForm);
 function submitForm(e) {
     e.preventDefault();
-    let animeNumber = animeNumberInput.value;
+    let genreNumber = animeNumberInput.value;
     // !isNaN(+animeNumber) && animeNumber !== ""
-    if (isNaN(animeNumber) || animeNumber == "" || animeNumber > animeNumberCeiling || animeNumber < 0) {
-        animeNumber = Math.floor(Math.random() * animeNumberCeiling) + 1;
+    if (isNaN(genreNumber) || genreNumber == "" || genreNumber > genreNumberCeiling || genreNumber < 0) {
+        genreNumber = Math.floor(Math.random() * genreNumberCeiling) + 1;
     }
-    getAnime(animeNumber);
+    getRandomAnimeFromGenre(genreNumber);
 }
-
-// Fetch an anime from the unofficial MAL API
-async function getAnime(animeNumber) {
-    const response = await fetch(`${apiURL}${animeNumber}`, {
+async function getRandomAnimeFromGenre(genreNumber) {
+    console.log(genreNumber);
+    const responsePage1 = await fetch(`${apiURL}?genre=${genreNumber}&page=1`, {
+        method: 'GET'
+    });
+    if (!responsePage1.ok) {
+        console.error(`Error: ${response.status}`);
+        return;
+    }
+    const page1Data = await responsePage1.json();
+    console.log(page1Data);
+    const pageNumber = Math.floor(Math.random() * page1Data.last_page) + 1;
+    console.log(page1Data.last_page);
+    const response = await fetch(`${apiURL}?genre=${genreNumber}&page=${pageNumber}`, {
         method: 'GET'
     });
     if (response.ok) {
         const data = await response.json();
+        const randomAnime = data.results[Math.floor(Math.random() * data.results.length)];
         console.log(data);
         queryError.classList.add('hidden');
         animeInfo.classList.remove('hidden');
-        animeTitle.textContent = `${data.title} // #${animeNumber}`;
-        animePicture.src = data.image_url;
-        score.textContent = data.score;
-        animeSynopsis.textContent = data.synopsis;
-        // !!! INNERHtml Used (cross-site scripting attack potential!)
-        animeOpening.textContent = "";
-        let openingThemes = data.opening_themes;
-        if (openingThemes.length > 0) {
-            openingThemes.forEach((op) => {
-                const li = document.createElement('li');
-                li.textContent = op;
-                animeOpening.appendChild(li);
-            });
-        } else {
-            animeOpening.textContent = "None Found";
-        }
-        animeEnding.textContent = "";
-        let endingThemes = data.ending_themes;
-        if (endingThemes.length > 0) {
-            endingThemes.forEach((ed) => {
-                const li = document.createElement('li');
-                li.textContent = ed;
-                animeEnding.appendChild(li);
-            });
-        } else {
-            animeEnding.textContent = "None Found";
-        }
-        animeTrailer.src = data.trailer_url;
-        animeLink.textContent = `Check out ${data.title}`;
-        animeLink.href = data.url;
-    } else if (response.status == 404) {
-        queryError.textContent = `No Anime at #${animeNumber}. Try again!`;
-        queryError.classList.remove('hidden');
-        animeInfo.classList.add('hidden');
+        animeTitle.textContent = `${randomAnime .title}`;
+        animePicture.src = randomAnime.image_url;
+        score.textContent = randomAnime.score;
+        animeSynopsis.textContent = randomAnime.synopsis;
+        animeLink.textContent = `Check out ${randomAnime.title}`;
+        animeLink.href = randomAnime.url;
     } else {
-        queryError.textContent = "Unexpected error occurred";
-        queryError.classList.remove('hidden');
-        animeInfo.classList.add('hidden');
+        console.error(`Error: ${response.status}`);
     }
-
 }
-
-// Make Re:Zero out starting anime shown
-getAnime(startingAnimeNumber);

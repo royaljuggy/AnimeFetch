@@ -18,6 +18,10 @@ body {
     font-weight: 700;
 }
 
+img {
+    max-width: 90%;
+}
+
 /* === Nav/title bar === */
 .navbar {
     text-align: center;
@@ -65,7 +69,6 @@ body {
         flex-direction: row;
     }
 }
-
 /* === Main-content */
 .main-content {
     background-color: #F4D7D9;
@@ -108,4 +111,3 @@ body {
 .hidden {
     display: none;
 }
-
