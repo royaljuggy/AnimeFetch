@@ -1,6 +1,7 @@
 const fetchForm = document.getElementById('fetchForm');
 const animeNumberInput = document.getElementById('animeNumber');
 const genreNumberCeiling = 42;
+const PAGE_CAP = 20; // MAL only shows up to 20 pages of a result, there may be more!
 const apiURL = 'https://api.jikan.moe/v3/search/anime';
 
 // Anime Info
@@ -15,11 +16,6 @@ const animeTrailer = document.querySelector(".animeTrailer");
 const animeLink = document.getElementById("animeLink");
 const queryError = document.getElementById("queryError")
 
-fetch('https://api.jikan.moe/v3/search/anime?genre=22&page=21')
-    .then(response => response.json())
-    .then(data => console.log(data));
-
-
 fetchForm.addEventListener('submit', submitForm);
 function submitForm(e) {
     e.preventDefault();
@@ -31,18 +27,28 @@ function submitForm(e) {
     getRandomAnimeFromGenre(genreNumber);
 }
 async function getRandomAnimeFromGenre(genreNumber) {
-    console.log(genreNumber);
     const responsePage1 = await fetch(`${apiURL}?genre=${genreNumber}&page=1`, {
         method: 'GET'
     });
     if (!responsePage1.ok) {
-        console.error(`Error: ${response.status}`);
+        console.error(`Error at responsePage1: ${responsePage1.status}`);
         return;
     }
     const page1Data = await responsePage1.json();
-    console.log(page1Data);
-    const pageNumber = Math.floor(Math.random() * page1Data.last_page) + 1;
-    console.log(page1Data.last_page);
+    let pageNumber = 0;
+    if (page1Data.last_page == PAGE_CAP) {
+        const responsePageCap = await fetch(`${apiURL}?genre=${genreNumber}&page=20`, {
+            method: 'GET'
+        });
+        if (!responsePageCap.ok) {
+            console.error(`Error at PAGE_CAP: ${responsePageCap.status}`);
+            return;
+        }
+        const pageCapData = await responsePageCap.json();
+        pageNumber = Math.floor(Math.random() * pageCapData.last_page) + 1;
+    } else {
+        pageNumber = Math.floor(Math.random() * page1Data.last_page) + 1;
+    }
     const response = await fetch(`${apiURL}?genre=${genreNumber}&page=${pageNumber}`, {
         method: 'GET'
     });

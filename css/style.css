@@ -109,3 +109,7 @@ body {
     display: none;
 }
 
+#rank,
+#popularity {
+    font-weight: 400;
+}

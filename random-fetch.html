@@ -3,8 +3,7 @@
 
 <head>
     <title>Anime</title>
-    <link href="css/random-fetch.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -23,13 +22,16 @@
         </nav>
     </div>
     <div class="main-content container">
-        <form id="fetchForm">
+        <!-- Form hidden for now (webpage will just give you a random anime everytime you reload it) -->
+        <!-- <form id="fetchForm">
             <label for="animeNumber" class="bold">Pass any number! (Optional)</label>
             <input type="text" id="animeNumber">
             <button id="btnFetch" type="submit">Get Anime!</button>
-        </form>
+        </form> -->
         <div class="animeInfo hidden">
             <h2 class="animeTitle underline"></h2>
+            <h3 class="animeRanking">Rank: <span id="rank"></span></h3>
+            <h3 class="animePopularity">Popularity: <span id="popularity"></span></h3>
             <h3 class="animeScore">Score: <span id="score"></span></h3>
             <img class="animePicture">
             <div class="animeDetails">
