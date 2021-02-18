@@ -8,6 +8,7 @@ const APIgetURL = 'https://api.jikan.moe/v3/anime/';
 const APIsearchURL = 'https://api.jikan.moe/v3/search/anime';
 
 // Anime Info
+const loadingInfo = document.getElementById('loading-info');
 const animeInfo = document.querySelector(".animeInfo");
 const animeTitle = document.querySelector(".animeTitle");
 const animePicture = document.querySelector(".animePicture");
@@ -66,6 +67,7 @@ async function getAnime(animeNumber) {
     });
     if (response.ok) {
         const data = await response.json();
+        loadingInfo.style.display = 'none';
         queryError.classList.add('hidden');
         animeInfo.classList.remove('hidden');
         animeTitle.textContent = `${data.title} // MAL ID#${animeNumber}`;
